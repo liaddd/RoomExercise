@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +14,9 @@ import java.util.List;
 public class WordRepository {
 
     private WordDao wordDao;
+    private MutableLiveData<List<Word>> wordsLiveData = new MutableLiveData();
 
-    public WordRepository(){
+    public WordRepository() {
         WordDatabase wordDatabase = WordDatabase.getDatabase(RoomExerciseApp.getInstance());
         wordDao = wordDatabase.wordDao();
     }
@@ -29,8 +31,6 @@ public class WordRepository {
     }
 
     public LiveData<List<Word>> getAllWords() {
-        MutableLiveData<List<Word>> wordsLiveData = new MutableLiveData();
-
         WordDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -54,5 +54,15 @@ public class WordRepository {
         });
 
         return wordsLiveData;
+    }
+
+    public void deleteAllWords() {
+        WordDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                wordDao.deleteAll();
+                wordsLiveData.postValue(new ArrayList<>());
+            }
+        });
     }
 }

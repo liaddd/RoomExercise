@@ -11,7 +11,9 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "word_table")
 public class Word {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+
     @NonNull
     private String word;
 
@@ -23,4 +25,11 @@ public class Word {
         return word;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

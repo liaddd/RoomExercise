@@ -15,6 +15,7 @@ import java.util.List;
 public class WordViewModel extends ViewModel {
 
     private WordRepository wordRepository;
+
     public MutableLiveData<Boolean> sortAlphabetized = new MutableLiveData<>();
 
     public WordViewModel() {
@@ -31,5 +32,9 @@ public class WordViewModel extends ViewModel {
 
     public LiveData<List<Word>> getSortedWords(){
         return wordRepository.getSortedWords();
+    }
+
+    public void deleteAllWords(){
+        wordRepository.deleteAllWords();
     }
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RoomExercise</string>
+    <string name="delete_all">Delete all</string>
 </resources>
